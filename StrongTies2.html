@@ -1,269 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StrongTiesGroup</title>
-  <link rel="stylesheet" href="Newstyle.css">
-
-  <style>
-    /* Moved inline styles here for cleanliness */
-    .section-margin { margin: 20px; }
-    .section-title-margin { margin-left: 20px; }
-  </style>
+    <title>Improved AJAX Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .preview {
+            margin-top: 15px;
+            max-width: 300px;
+        }
+        img {
+            max-width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        textarea {
+            width: 100%;
+            resize: vertical;
+        }
+        .status {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .uploaded-preview {
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
-  <header id="custom-hero-bg">
-    <div class="header-overlay">
-      <div class="header-content">
-        <img src="StrongTies Logo2.jpeg" width="900" alt="StrongTies Logo">
-        <div class="hero-join-text header-join-text">Please join us to celebrate</div>
-        <div class="hero-names header-names">StrongTies Lagos Hangout 7years Anniversary</div>
-        <div class="hero-details header-details">15-17th Aug 2025 - Lagos, Nigeria</div>
-      </div>
-    </div>
-  </header>
+    <h2>Improved AJAX Image Upload</h2>
 
-  <section id="story">
-    <h2 class="story-title">Our Motto (Onward Together)</h2>
-    <div class="story-text">
-      We are coming together to tighten our bonds and friendship and keep sustaining this group
-      built on love and oneness.
-    </div>
-    <div class="story-image-curve">
-      <img src="StrongTies Logo2.jpeg" alt="StrongTies group celebration" class="story-image">
-    </div>
-  </section>
+    <form id="uploadForm">
+        <label for="image">Select Image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required><br><br>
 
-  <!-- Countdown -->
-  <section id="wedding-invite">
-    <div class="countdown-box">
-      <div class="countdown-icon">
-        <img src="Stopwatch.webp" alt="Stopwatch countdown icon">
-      </div>
-      <div class="countdown-title">COUNTDOWN TO 15th AUGUST</div>
-      <div id="main-countdown"></div>
-    </div>
-    <div class="invite-card">
-      <div class="invite-message">
-        <p>WITH JOY FOR ANOTHER YEAR ADDED</p>
-        <p>WE HUMBLY REQUEST THE HONOR OF YOUR PRESENCE TO CELEBRATE <br> WITH US</p>
-      </div>
-      <div class="invite-date-row">
-        <span class="date-num">15</span>
-        <span class="dot-sep">&bull;</span>
-        <span class="date-num">ST</span>
-        <span class="dot-sep">&bull;</span>
-        <span class="date-num">25</span>
-      </div>
-      <div class="invite-day">
-        FRIDAY 15TH AUGUST, 2025
-      </div>
-      <div class="invite-location">
-        <p>Lagos,</p><p>Nigeria</p>
-      </div>
-    </div>
-  </section>
+        <div class="preview" id="preview"></div>
 
-  <!-- Timeline -->
-  <section id="our-day">
-    <h2 class="timeline-main-title">
-      OUR DAY <br>
-      <span class="timeline-script">Timeline</span>
-    </h2>
-    <div class="timeline-intro">
-      Here is what you can expect on our anniversary hangout.
-      We can't wait to make more memories with each other!
-    </div>
+        <label for="description">Description:</label><br>
+        <textarea name="description" id="description" rows="4" placeholder="Write a description..." required></textarea><br><br>
 
-    <div class="timeline-list">
-      <!-- Timeline items kept the same but with better alt text -->
-      <div class="timeline-item">
-        <div class="timeline-icon">
-            <img src="StrongTies Logo1.jpeg" alt="Arrival icon">
-        </div>
-        <div class="timeline-details">
-          <div class="timeline-time"><b>15th Aug<br>2:00pm</b></div>
-          <div class="timeline-label">Arrival date</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <img src="StrongTies Logo1.jpeg" alt="Party icon">
-        </div>
-        <div class="timeline-details">
-          <div class="timeline-time"><b>Welcome Party</b></div>
-          <div class="timeline-label">DJ, Food &amp; Drinks</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <img src="StrongTies Logo1.jpeg" alt="Boat icon">
-        </div>
-        <div class="timeline-details">
-          <div class="timeline-time"><b>16th Aug<br>2:00pm</b></div>
-          <div class="timeline-label">Boat Cruise</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <img src="StrongTies Logo1.jpeg" alt="Beach party icon">
-        </div>
-        <div class="timeline-details">
-          <div class="timeline-time"><b>7:00pm</b></div>
-          <div class="timeline-label">Beach Party. <br> Burn &#128293;</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <img src="StrongTies Logo1.jpeg" alt="Breakfast icon">
-        </div>
-        <div class="timeline-details">
-          <div class="timeline-time"><b>17th Aug</b></div>
-          <div class="timeline-label">Morning breakfast &#127828;.<br>Chilling</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-icon">
-          <img src="StrongTies Logo1.jpeg" alt="Farewell icon">
-        </div>
-        <div class="timeline-details">
-          <div class="timeline-time"><b>12:00pm</b></div>
-          <div class="timeline-label">Farewell</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Colours -->
-  <section id="colours">
-    <h2 class="colours-title">COLOURS<br><span>Of The Day</span></h2>
-    <div class="colours-bg-wrap">
-      <img src="StrongTies Logo1.jpeg" alt="Color theme background" class="colours-bg">
-      <div class="colour-circles">
-        <div class="colour-dot gold"></div>
-        <div class="colour-dot green"></div>
-        <div class="colour-dot white"></div>
-        <div class="colour-dot brown"></div>
-      </div>
-    </div>
-    <div class="colors-label-row">
-      <div class="color-label">
-        <span class="color-bar gold"></span>
-        <div>Gold</div>
-      </div>
-      <div class="color-label">
-        <span class="color-bar emerald"></span>
-        <div>Green</div>
-      </div>
-      <div class="color-label">
-        <span class="color-bar white"></span>
-        <div>White</div>
-      </div>
-      <div class="color-label">
-        <span class="color-bar brown"></span>
-        <div>Brown</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RSVP -->
-  <section id="rsvp">
-    <div class="rsvp-heading">
-      <img src="StrongTies Logo1.jpeg" class="rsvp-floral" alt="Decorative logo">
-      <h2>RSVP</h2>
-      <img src="StrongTies Logo1.jpeg" class="rsvp-floral" alt="Decorative logo">
-    </div>
-    <h3 style="color: rgb(94, 109, 35);"><i>StrongTies Members</i></h3>
-    <div class="rsvp-list">
-      <div class="rsvp-card">
-        <div class="rsvp-phone">+1 (202) 322-2472</div>
-        <div class="rsvp-name">Seldom</div>
-      </div>
-      <div class="rsvp-card">
-        <div class="rsvp-phone">+234 803 335 8753</div>
-        <div class="rsvp-name">Femi Ola</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Message -->
-  <section id="message" class="section-margin">
-    <h2 class="section-title-margin">Send Us a Message</h2>
-    <form action="https://formspree.io/f/mzzvylyz" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
+        <button type="submit">Upload</button>
     </form>
-    <p class="form-note">We'd love to hear from you!</p>
-  </section>
 
-  <!-- Venue -->
-  <section id="venue">
-    <h2 class="section-title-margin">Location</h2>
-    <p class="section-margin">Unit 6, Marwa Bus stop, 7C Hunponu-Wusu Rd, Lekki Phase 1, Lagos 106104, Lagos, Nigeria</p>
-    <div class="map-embed">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3964.689269799368!2d3.4672018243936558!3d6.433944593557219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s7c%20hunponu%20wusu%20rd%20marwa%20bus%20stop%20lekki%20phase%201!5e0!3m2!1sen!2sng!4v1754951318056!5m2!1sen!2sng"
-              width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-  </section>
+    <div class="status" id="status"></div>
 
-  <!-- Social -->
-  <section id="social" class="section-margin">
-    <h2 class="section-margin">Share Your Moments</h2>
-    <p>
-      Comment on our photo on Instagram with 
-      <b>#Strongties7thAnniversary</b><br>
-      <a href="https://www.instagram.com/p/DGxKc_EMuqG/" target="_blank">
-        View the post
-      </a>
-    </p>
-  </section>
+    <div class="uploaded-preview" id="uploadedPreview"></div>
 
-  <!-- Save The Date -->
-  <section id="save-the-date">
-    <img src="StrongTies Logo1.jpeg" alt="StrongTies anniversary logo">
-    <div class="save-date-overlay">
-      <div class="save-date-content">
-        <div class="save-date-script">Save The Date</div>
-        <div class="save-date-names" style="color: black;">StrongTies Lagos Hangout 7years Anniversary</div>
-        <div class="save-date-details" style="color: black;">15-17th 2025 - Lagos, Nigeria</div>
-        <div id="save-date-countdown"></div>
-      </div>
-    </div>
-  </section>
+    <h2>Improved AJAX Image Upload</h2>
 
-  <!-- Countdown Script -->
-  <script>
-    function startCountdown(elementId, targetDate, finishedMessage) {
-      const element = document.getElementById(elementId);
-      if (!element) return; // If the element doesn't exist, stop
+    <form id="uploadForm">
+        <label for="image">Select Image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required><br><br>
+
+        <div class="preview" id="preview"></div>
+
+        <label for="description">Description:</label><br>
+        <textarea name="description" id="description" rows="4" placeholder="Write a description..." required></textarea><br><br>
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <div class="status" id="status"></div>
+
+    <div class="uploaded-preview" id="uploadedPreview"></div>
+
+    <h2>Improved AJAX Image Upload</h2>
+
+    <form id="uploadForm">
+        <label for="image">Select Image:</label>
+        <input type="file" name="image" id="image" accept="image/*" required><br><br>
+
+        <div class="preview" id="preview"></div>
+
+        <label for="description">Description:</label><br>
+        <textarea name="description" id="description" rows="4" placeholder="Write a description..." required></textarea><br><br>
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <div class="status" id="status"></div>
+
+    <div class="uploaded-preview" id="uploadedPreview"></div>
+
+    <script>
+        const imageInput = document.getElementById('image');
+        const previewDiv = document.getElementById('preview');
+        const form = document.getElementById('uploadForm');
+        const statusDiv = document.getElementById('status');
+        const uploadedPreview = document.getElementById('uploadedPreview');
+
+        // Show local preview before upload
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            previewDiv.innerHTML = '';
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    previewDiv.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // AJAX upload with spinner
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            statusDiv.innerHTML = '<div class="spinner"></div> Uploading...';
+            uploadedPreview.innerHTML = '';
+
+            const formData = new FormData();
+            formData.append('image', imageInput.files[0]);
+            formData.append('description', document.getElementById('description').value);
+
+            try {
+                const response = await fetch('upload.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json(); // Expecting JSON from PHP
+                if (result.success) {
+                    statusDiv.textContent = 'Upload successful!';
+                    uploadedPreview.innerHTML = `
+                        <h3>Uploaded Image:</h3>
+                        <img src="${result.filePath}" alt="Uploaded">
+                        <p><strong>Description:</strong> ${result.description}</p>
+                    `;
+                } else {
+                    statusDiv.textContent = 'Error: ' + result.message;
+                }
+            } catch (error) {
+                statusDiv.textContent = 'Error uploading file!';
+            }
+        });
+    </script>
+
     
-      const countDownDate = new Date(targetDate).getTime();
-    
-      setInterval(function () {
-        const now = new Date().getTime();
-        const distance = countDownDate - now;
-    
-        if (distance < 0) {
-          element.innerHTML = `<span>${finishedMessage}</span>`;
-          return;
-        }
-    
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-        element.innerHTML =
-          `<span>${days}D</span> <span>${hours}H</span> <span>${minutes}M</span> <span>${seconds}S</span>`;
-      }, 1000);
-    }
-    
-    // Run countdowns
-    startCountdown("main-countdown", "Aug 15, 2025 13:00:00", "It's the big day!");
-    startCountdown("save-date-countdown", "Aug 15, 2025 13:00:00", "It's the big day!");
-  </script>
 </body>
 </html>
